@@ -70,7 +70,7 @@ class Supplier extends CI_Controller
         $this->form_validation->set_rules('phone', '', 'required', array('required' => 'No. Telepon wajib diisi'));
         $this->form_validation->set_rules('address', '', 'required', array('required' => 'Alamat wajib diisi'));
         if ($this->form_validation->run() == FALSE) {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $supplier = new stdClass();
                 $supplier->supplier_id = null;
                 $supplier->name = null;
@@ -101,7 +101,7 @@ class Supplier extends CI_Controller
                 }
             }
         } else {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $this->Admin_Model->simpandata('tb_supplier', $data);
             } else if (isset($_POST['edit'])) {
                 $this->Admin_Model->editdata('tb_supplier', 'supplier_id', $id, $data);

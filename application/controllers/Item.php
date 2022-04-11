@@ -8,13 +8,13 @@ class Item extends CI_Controller
     {
         parent::__construct();
         $this->load->model(['Admin_Model', 'Item_Model']);
-        if (empty($this->session->userdata('username')) and empty($this->session->userdata('password'))) {
-            redirect('login');
-        }
+        // if (empty($this->session->userdata('username')) and empty($this->session->userdata('password'))) {
+        //     redirect('login');
+        // }
     }
     public function index()
     {
-        $data['item'] = $this->Item_Model->tampildata('tb_item', 'item_id');
+        $data['item'] = $this->Item_Model->tampildata();
         $this->load->view('template/header');
         $this->load->view('product/item/item_data', $data);
         $this->load->view('template/footer');
@@ -23,7 +23,7 @@ class Item extends CI_Controller
     {
         $item = new stdClass();
         $item->item_id = null;
-        $item->barcode = $this->Item_Model->barcode_no(); 
+        $item->barcode = null;
         $item->image = null;
         $item->name = null;
         $item->price = null;
@@ -73,7 +73,7 @@ class Item extends CI_Controller
         $this->form_validation->set_rules('unit', '', 'required', array('required' => 'Unit wajib diisi'));
         $this->form_validation->set_rules('price', '', 'required', array('required' => 'Harga wajib diisi'));
         if ($this->form_validation->run() == FALSE) {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $item = new stdClass();
                 $item->item_id = null;
                 $item->barcode = null;
@@ -111,8 +111,8 @@ class Item extends CI_Controller
                 }
             }
         } else {
-            if (isset($_POST['add'])) {
-                $config['upload_path']    = 'http://epos-app.000webhostapp.com/assets/image/barang/';
+            if (isset($_POST['tambah'])) {
+                $config['upload_path']    = './assets/image/barang/';
                 $config['allowed_types'] = 'gif|jpg|png|jpeg';
                 $config['max_size']    = 2048;
                 $config['file_name']    = 'item-' . date('ymd') . '-' . substr(md5(rand()), 0, 10);
@@ -137,6 +137,7 @@ class Item extends CI_Controller
                         $this->session->set_flashdata('error', $error);
                         $item = new stdClass();
                         $item->item_id = null;
+                        $item->image = null;
                         $item->barcode = null;
                         $item->name = null;
                         $item->price = null;
@@ -226,10 +227,6 @@ class Item extends CI_Controller
                     redirect('item');
                 }
             }
-            if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Data berhasil disimpan');
-                redirect('item');
-            }
         }
     }
     public function delete($id)
@@ -259,5 +256,26 @@ class Item extends CI_Controller
         $data['row'] = $this->Admin_Model->formedit('tb_item', 'item_id', $id)->row();
         // $this->template->load('template', 'item/barcode_qrcode', $data);
         $this->load->view('product/item/qrcode_print', $data);
+    }
+    public function getitem()
+    {
+        if (isset($_POST['add_item'])) {
+            $item_id = $this->input->post('item_id');
+            $item = $this->Item_Model->tampildata($item_id);
+            if ($item->num_rows() > 0) {
+                $item = $this->Item_Model->tampildata($item_id)->row();
+                $params = array(
+                    "success" => true,
+                    "item_id" => $item->item_id,
+                    "item_name" => $item->name,
+                    "unit_name"    => $item->unit_name,
+                    "stock"      => $item->stock,
+                    "price"      => $item->price
+                );
+            } else {
+                $params = array("success" => false);
+            }
+            echo json_encode($params);
+        }
     }
 }

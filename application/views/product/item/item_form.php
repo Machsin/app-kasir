@@ -64,7 +64,7 @@
                          <input type="number" name="price" value="<?= $item->price == '' ? set_value('price') : $item->price  ?>" class="form-control">
                          <?= form_error('price') ?>
                      </div>
-                     <div class="form-group">
+                     <div class="form-group" style="display: none;">
                          <label>Gambar</label>
                          <input type="file" name="image" class="form-control">
                          <?= form_error('item_name') ?>

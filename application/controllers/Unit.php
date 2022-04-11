@@ -62,7 +62,7 @@ class Unit extends CI_Controller
         );
         $this->form_validation->set_rules('unit_name', '', 'required', array('required' => 'Nama wajib diisi'));
         if ($this->form_validation->run() == FALSE) {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $unit = new stdClass();
                 $unit->unit_id = null;
                 $unit->name = null;
@@ -90,13 +90,16 @@ class Unit extends CI_Controller
                 }
             }
         } else {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $this->Admin_Model->simpandata('tb_unit', $data);
             } else if (isset($_POST['edit'])) {
                 $this->Admin_Model->editdata('tb_unit', 'unit_id', $id, $data);
             }
             if ($this->db->affected_rows() > 0) {
                 $this->session->set_flashdata('success', 'Data berhasil disimpan');
+                redirect('unit');
+            }else{
+                $this->session->set_flashdata('error', 'Data gagal disimpan');
                 redirect('unit');
             }
         }

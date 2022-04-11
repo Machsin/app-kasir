@@ -32,7 +32,6 @@
                          <th>Kategori</th>
                          <th>Satuan</th>
                          <th>Harga Jual</th>
-                         <th>Gambar</th>
                          <th>Stok</th>
                          <th>Aksi</th>
                      </tr>
@@ -52,7 +51,6 @@
                              <td><?= $data->categori_name ?></td>
                              <td><?= $data->unit_name ?></td>
                              <td><?= $data->price ?></td>
-                             <td class="text-center"><img src="<?= base_url('assets/image/product/' . $data->image) ?>" width="100px"></td>
                              <td><?= $data->stock ?></td>
                              <td class="text-center" width="160px">
                                  <a href="<?= base_url('item/edit/' . $data->item_id) ?>" class="btn btn-primary btn-xs">

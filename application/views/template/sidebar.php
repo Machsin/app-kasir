@@ -17,9 +17,9 @@
             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="<?= base_url('categori') ?>"><i class="fa fa-circle-o"></i> Kategori</a></li>
-            <li><a href="<?= base_url('unit') ?>"><i class="fa fa-circle-o"></i> Unit</a></li>
-            <li><a href="<?= base_url('item') ?>"><i class="fa fa-circle-o"></i> Barang</a></li>
+            <li class="<?= $this->uri->segment('1') == 'categori' ? 'active' : null ?>"><a href="<?= base_url('categori') ?>"><i class="fa fa-circle-o"></i> Kategori</a></li>
+            <li class="<?= $this->uri->segment('1') == 'unit' ? 'active' : null ?>"><a href="<?= base_url('unit') ?>"><i class="fa fa-circle-o"></i> Unit</a></li>
+            <li class="<?= $this->uri->segment('1') == 'item' ? 'active' : null ?>"><a href="<?= base_url('item') ?>"><i class="fa fa-circle-o"></i> Barang</a></li>
         </ul>
     </li>
     <li class="treeview <?= $this->uri->segment('1') == 'sale' ||
@@ -29,9 +29,9 @@
             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="<?= base_url('sale') ?>"><i class="fa fa-circle-o"></i> Penjualan</a></li>
-            <li><a href="<?= base_url('stock/in') ?>"><i class="fa fa-circle-o"></i> Stok Masuk</a></li>
-            <li><a href="<?= base_url('stock/out') ?>"><i class="fa fa-circle-o"></i> Stok Keluar</a></li>
+            <li class="<?=$this->uri->segment('1')=='sale'?'active':null?>"><a href="<?= base_url('sale') ?>"><i class="fa fa-circle-o"></i> Penjualan</a></li>
+            <li class="<?=$this->uri->segment('2')=='in'?'active':null?>"><a href="<?= base_url('stock/in') ?>"><i class="fa fa-circle-o"></i> Stok Masuk</a></li>
+            <li class="<?=$this->uri->segment('2')=='out'?'active':null?>"><a href="<?= base_url('stock/out') ?>"><i class="fa fa-circle-o"></i> Stok Keluar</a></li>
         </ul>
     </li>
     <li class="treeview <?= $this->uri->segment('1') == 'report' ? 'active' : null ?>">
@@ -40,8 +40,8 @@
             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="<?= base_url('report/report_sale') ?>"><i class="fa fa-circle-o"></i> Penjualan</a></li>
-            <li><a href="<?= base_url('report/report_stock') ?>"><i class="fa fa-circle-o"></i> Stok</a></li>
+            <li class="<?=$this->uri->segment('2')=='report_sale'?'active':null?>"><a href="<?= base_url('report/report_sale') ?>"><i class="fa fa-circle-o"></i> Penjualan</a></li>
+            <li class="<?=$this->uri->segment('2')=='report_stock'?'active':null?>"><a href="<?= base_url('report/report_stock') ?>"><i class="fa fa-circle-o"></i> Stok</a></li>
         </ul>
     </li>
     <?php if ($this->session->userdata('level') == 1) { ?>

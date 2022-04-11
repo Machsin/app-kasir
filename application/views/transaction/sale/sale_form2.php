@@ -12,7 +12,6 @@
 </section>
 <section class="content">
     <div class="row">
-        <!-- Tanggal -->
         <div class="col-lg-4">
             <div class="box box-widget">
                 <div class="box-body">
@@ -37,7 +36,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr> 
                             <td style="vertical-align:top">
                                 <label for="customer">Pelanggan</label>
                             </td>
@@ -56,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <!-- Barang -->
+
         <div class="col-lg-4">
             <div class="box box-widget">
                 <div class="box-body">
@@ -76,16 +75,6 @@
                                             <i class="fa fa-search" id="basic"></i>
                                         </button>
                                     </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align:top">
-                                <label for="barang">Barang</label>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" id="item_name" class="form-control" readonly>
                                 </div>
                             </td>
                         </tr>
@@ -118,7 +107,7 @@
                 <div class="box-body">
                     <div align="right">
                         <h4>Invoice <b><span id="invoice"><?= $invoice ?></span></b></h4>
-                        <h1><b><span id="grand_total2" style="font-size:50pt">Rp. 0</span></b></h1>
+                        <h1><b><span id="grand_total2" style="font-size:50pt">0</span></b></h1>
                     </div>
                 </div>
             </div>
@@ -197,13 +186,21 @@
                     <table width="100%">
                         <tr>
                             <td style="vertical-align:top; width:30%">
-                                <label for="cash" style="font-size: 20pt;">Bayar</label>
+                                <label for="cash">Bayar</label>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="number" id="cash" value="0" min="0" class="form-control">
+                                </div>
                             </td>
                         </tr>
                         <tr>
+                            <td style="vertical-align:top">
+                                <label for="change">Kembalian</label>
+                            </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="number" id="cash" value="0" min="0" class="form-control" style="font-size: 30px;height: 85px;">
+                                    <input type="number" id="change" class="form-control" readonly>
                                 </div>
                             </td>
                         </tr>
@@ -215,27 +212,13 @@
             <div class="box box-widget">
                 <div class="box-body">
                     <table width="100%">
-                        <!-- <tr>
+                        <tr>
                             <td style="vertical-align:top">
                                 <label for="note">Catatan</label>
                             </td>
                             <td>
                                 <div>
                                     <textarea id="note" rows="3" class="form-control"></textarea>
-                                </div>
-                            </td>
-                        </tr> -->
-                        <tr>
-                            <td style="vertical-align:top">
-                                <label for="change" style="font-size: 20pt;">Kembalian</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="form-group">
-                                    <input type="hidden" id="note" rows="3" class="form-control"></input>
-                                    <input type="hidden" id="change" class="form-control" readonly style="font-size: 30px;height: 85px;">
-                                    <input type="text" id="kembalian" class="form-control" readonly style="font-size: 30px;height: 85px;">
                                 </div>
                             </td>
                         </tr>
@@ -267,7 +250,7 @@
             </div>
             <div class="modal-body table-responsive">
                 <div class="container-fluid">
-                    <table class="table table-bordered table-striped" id="table1">
+                    <table class="table table-bordered table-striped" id="example1">
                         <thead>
                             <tr>
                                 <th>Barcode</th>
@@ -305,7 +288,7 @@
     $(document).ready(function() {
         calculate()
     });
-
+ 
     $(document).on('click', '#select', function() {
         $('#item_id').val($(this).data('id'))
         $('#barcode').val($(this).data('barcode'))
@@ -320,7 +303,7 @@
         var stock = $('#stock').val();
         var qty = $('#qty').val();
         if (item_id == '') {
-            alert('Barang belum dipilih');
+            alert('Product belum dipilih');
             $('#barcode').focus();
         } else if (stock - qty < 0) {
             alert('Stock tidak mencukupi');
@@ -410,7 +393,7 @@
                         'change': change,
                         'note': note,
                         'date': date
-                    },
+                    }, 
                     dataType: "json",
                     success: function(result) {
                         if (result.success == true) {
@@ -468,96 +451,18 @@
         //console.log(subtotal);
         if (isNaN(grand_total)) {
             $('#grand_total').val(0)
-            $('#grand_total2').text('Rp. 0')
+            $('#grand_total2').text(0)
         } else {
             $('#grand_total').val(grand_total)
-            var total_angka = grand_total + '';
-            $('#grand_total2').text(formatRupiah(total_angka, 'Rp. '))
+            $('#grand_total2').text(grand_total)
         }
 
         //hitung kembalian
         var cash = $('#cash').val();
         cash != 0 ? $('#change').val(cash - grand_total) : $('#change').val(0);
-        cash != 0 ? $('#kembalian').val(formatRupiah('' + (cash - grand_total), 'Rp. ')) : $('#kembalian').val(0);
     }
 
     $(document).on('keyup mouseup', '#discount, #cash', function() {
         calculate()
     })
-    $(document).on('change', '#barcode', function() {
-        var item_id = $('#barcode').val();
-        $.ajax({
-            type: "POST",
-            url: "<?= base_url('item/getitem') ?>",
-            data: {
-                'add_item': true,
-                'item_id': item_id,
-            },
-            dataType: "json",
-            success: function(result) {
-                if (result.success == true) {
-                    $('#item_id').val(result.item_id);
-                    $('#item_name').val(result.item_name);
-                    $('#unit_name').val(result.unit_name);
-                    $('#stock').val(result.stock);
-                    $('#price').val(result.price);
-                    $.ajax({
-                        type: "POST",
-                        url: "<?= base_url('sale/process') ?>",
-                        data: {
-                            'add_cart': true,
-                            'item_id': result.item_id,
-                            'price': result.price,
-                            'qty': '1'
-                        },
-                        dataType: "json",
-                        success: function(result) {
-                            if (result.success == true) {
-                                $('#cart_tabel').load('<?= base_url('sale/cart_data'); ?>', function() {
-                                    calculate()
-                                });
-                                $('#item_id').val('');
-                                $('#barcode').val('');
-                                $('#qty').val(1);
-                                $('#barcode').focus();
-                            } else {
-                                alert('Gagal tambah item cart');
-                            }
-                        }
-                    });
-                } else {
-                    alert('Barang tidak ada');
-                    $('#item_id').val('');
-                    $('#barcode').val('');
-                    $('#item_name').val('');
-                    $('#unit_name').val('');
-                    $('#stock').val('');
-                    $('#price').val('');
-                }
-            }
-        });
-    });
-    //fungsi formatrupiah
-    function formatRupiah(angka, prefix) {
-        var minus = angka.charAt(0);
-        if(minus=='-'){
-            minus = '-';
-        }else{
-            minus ='';
-        }
-        var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-        // tambahkan titik jika yang di input sudah menjadi angka ribuan
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? minus+rupiah : (minus+rupiah ? 'Rp. ' + minus+rupiah : '');
-    }
 </script>
