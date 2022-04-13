@@ -42,7 +42,16 @@
                              <textarea name="alamat" class="form-control"><?= $setting->address ?></textarea>
                              <?= form_error('alamat') ?>
                          </div>
-                         <div class="form-group <?= form_error('struk') ? 'has-error' : null ?>">
+                         <div class="form-group  <?= form_error('hargajual') ? 'has-error' : null ?>">
+                             <label>Kategori Harga *</label>
+                             <select name="kategori_harga" class="form-control">
+                                 <option value="">- Pilih Harga -</option>
+                                 <option value="jual" <?= $setting->kategori_harga == 'jual' ? 'selected' : null ?>>Harga Jual</option>
+                                 <option value="kulakan" <?= $setting->kategori_harga == 'kulakan' ? 'selected' : null ?>>Harga Kulakan</option>
+                             </select>
+                             <?= form_error('categori') ?>
+                         </div>
+                         <div class="form-group <?= form_error('struk') ? 'has-error' : null ?>" style="display: none;">
                              <label>Kode Struk * </label>
                              <div class="row">
                                  <div class="col-xs-3">
@@ -57,7 +66,7 @@
                                  </div>
                              </div>
                          </div>
-                         <div class="form-group <?= form_error('barcode') ? 'has-error' : null ?>">
+                         <div class="form-group <?= form_error('barcode') ? 'has-error' : null ?>" style="display: none;">
                              <label>Kode Barcode * </label>
                              <div class="row">
                                  <div class="col-xs-3">

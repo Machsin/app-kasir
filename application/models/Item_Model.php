@@ -2,15 +2,17 @@
 class Item_model extends CI_Model
 {
 
-    public function tampildata()
+    public function tampildata($id = null)
     {
         $query = $this->db->select('tb_item.*, tb_categori.name as categori_name, tb_unit.name as unit_name')
             ->from('tb_item')
             ->join('tb_categori', 'tb_categori.categori_id = tb_item.categori_id', 'left')
             ->join('tb_unit', 'tb_unit.unit_id = tb_item.unit_id', 'left')
-            ->order_by('item_id', 'DESC')
-            ->get();
-        return $query;
+            ->order_by('item_id', 'DESC');
+        if ($id != null) {
+            $query = $query->where('tb_item.barcode', $id);
+        }
+        return $query->get();
     }
     public function tampilitemsale()
     {

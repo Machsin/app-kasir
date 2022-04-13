@@ -34,7 +34,7 @@ class Stock extends CI_Controller
         if (isset($_POST['in_add'])) {
             $datastock = array(
                 'item_id' => $this->input->post('item_id'),
-                'type' => 'in',
+                'type' => 'masuk',
                 'detail' => $this->input->post('detail'),
                 'supplier_id' => $this->input->post('supplier') == '' ? null : $this->input->post('supplier'),
                 'qty' => $this->input->post('qty'),
@@ -54,7 +54,7 @@ class Stock extends CI_Controller
         } else {
             $datastock = array(
                 'item_id' => $this->input->post('item_id'),
-                'type' => 'out',
+                'type' => 'keluar',
                 'detail' => $this->input->post('detail'),
                 'qty' => $this->input->post('qty'),
                 'date' => $this->input->post('date'),

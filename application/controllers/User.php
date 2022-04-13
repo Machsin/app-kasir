@@ -29,7 +29,7 @@ class User extends CI_Controller
         $user->address = null;
         $user->level = null;
         $data = array(
-            'page' => 'add',
+            'page' => 'tambah',
             'title' =>'Tambah Data Pengguna',
             'user' => $user
         );
@@ -67,13 +67,13 @@ class User extends CI_Controller
         );
         $this->form_validation->set_rules('fullname', '', 'required', array('required' => 'Nama wajib diisi'));
         $this->form_validation->set_rules('username', '', 'required|min_length[5]', array('required' => 'Username wajib diisi', 'min_length' => 'Username minimal 5 karakter'));
-        if (isset($_POST['add']) || $this->input->post('password') != '') {
+        if (isset($_POST['tambah']) || $this->input->post('password') != '') {
             $this->form_validation->set_rules('password', '', 'required|min_length[5]', array('required' => 'Password wajib diisi', 'min_length' => 'Password minimal 5 karakter'));
             $this->form_validation->set_rules('passwordconf', '', 'required|matches[password]', array('required' => 'Konfirmasi wajib diisi', 'matches' => 'Password dan Konfirmasi tidak sama'));
         }
         $this->form_validation->set_rules('level', '', 'required', array('required' => 'Level wajib pilih'));
         if ($this->form_validation->run() == FALSE) {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $user = new stdClass();
                 $user->user_id = null;
                 $user->name = null;
@@ -82,7 +82,7 @@ class User extends CI_Controller
                 $user->address = null;
                 $user->level = null;
                 $data = array(
-                    'page' => 'add',
+                    'page' => 'tambah',
                     'title' =>'Tambah Data Pengguna',
                     'user' => $user
                 );
@@ -107,7 +107,7 @@ class User extends CI_Controller
                 }
             }
         } else {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $this->Admin_Model->simpandata('tb_user', $data);
             } else if (isset($_POST['edit'])) {
                 $this->Admin_Model->editdata('tb_user', 'user_id', $id, $data);

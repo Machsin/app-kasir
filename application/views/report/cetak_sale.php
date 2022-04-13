@@ -8,7 +8,7 @@
     <title>Cetak Laporan Penjualan</title>
 </head>
 
-<body>
+<body onload="window.print()">
     <div class="content">
         <div class="title" style="text-align: center">
             <b>

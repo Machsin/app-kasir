@@ -1,7 +1,7 @@
 <?php
 function indo_currency($nominal)
 {
-    $result = "Rp " . number_format($nominal, 2, ',', '.');
+    $result = "Rp " . number_format($nominal, 0, ',', '.');
     return $result;
 }
 function indo_date($date)

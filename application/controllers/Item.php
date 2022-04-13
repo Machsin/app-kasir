@@ -8,13 +8,13 @@ class Item extends CI_Controller
     {
         parent::__construct();
         $this->load->model(['Admin_Model', 'Item_Model']);
-        if (empty($this->session->userdata('username')) and empty($this->session->userdata('password'))) {
-            redirect('login');
-        }
+        // if (empty($this->session->userdata('username')) and empty($this->session->userdata('password'))) {
+        //     redirect('login');
+        // }
     }
     public function index()
     {
-        $data['item'] = $this->Item_Model->tampildata('tb_item', 'item_id');
+        $data['item'] = $this->Item_Model->tampildata();
         $this->load->view('template/header');
         $this->load->view('product/item/item_data', $data);
         $this->load->view('template/footer');
@@ -23,10 +23,11 @@ class Item extends CI_Controller
     {
         $item = new stdClass();
         $item->item_id = null;
-        $item->barcode = $this->Item_Model->barcode_no(); 
+        $item->barcode = null;
         $item->image = null;
         $item->name = null;
         $item->price = null;
+        $item->price2 = null;
         $item->categori_id = null;
         $item->unit_id = null;
 
@@ -71,9 +72,10 @@ class Item extends CI_Controller
         $this->form_validation->set_rules('name', '', 'required', array('required' => 'Nama Produk wajib diisi'));
         $this->form_validation->set_rules('categori', '', 'required', array('required' => 'Kategori wajib diisi'));
         $this->form_validation->set_rules('unit', '', 'required', array('required' => 'Unit wajib diisi'));
-        $this->form_validation->set_rules('price', '', 'required', array('required' => 'Harga wajib diisi'));
+        $this->form_validation->set_rules('price', '', 'required', array('required' => 'Harga Jual wajib diisi'));
+        $this->form_validation->set_rules('price2', '', 'required', array('required' => 'Harga Kulakan wajib diisi'));
         if ($this->form_validation->run() == FALSE) {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $item = new stdClass();
                 $item->item_id = null;
                 $item->barcode = null;
@@ -111,8 +113,8 @@ class Item extends CI_Controller
                 }
             }
         } else {
-            if (isset($_POST['add'])) {
-                $config['upload_path']    = 'http://epos-app.000webhostapp.com/assets/image/barang/';
+            if (isset($_POST['tambah'])) {
+                $config['upload_path']    = './assets/image/barang/';
                 $config['allowed_types'] = 'gif|jpg|png|jpeg';
                 $config['max_size']    = 2048;
                 $config['file_name']    = 'item-' . date('ymd') . '-' . substr(md5(rand()), 0, 10);
@@ -137,9 +139,11 @@ class Item extends CI_Controller
                         $this->session->set_flashdata('error', $error);
                         $item = new stdClass();
                         $item->item_id = null;
+                        $item->image = null;
                         $item->barcode = null;
                         $item->name = null;
                         $item->price = null;
+                        $item->price2 = null;
                         $item->categori_id = null;
                         $item->unit_id = null;
 
@@ -162,6 +166,7 @@ class Item extends CI_Controller
                         'categori_id' => $this->input->post('categori'),
                         'unit_id' => $this->input->post('unit'),
                         'price' => $this->input->post('price'),
+                        'price2' => $this->input->post('price2'),
                     );
                     $this->Admin_Model->simpandata('tb_item', $data);
                     if ($this->db->affected_rows() > 0) {
@@ -184,6 +189,7 @@ class Item extends CI_Controller
                             'categori_id' => $this->input->post('categori'),
                             'unit_id' => $this->input->post('unit'),
                             'price' => $this->input->post('price'),
+                            'price2' => $this->input->post('price2'),
                             'image' => $this->upload->data('file_name'),
                         );
                         $this->Admin_Model->editdata('tb_item', 'item_id', $id, $data);
@@ -218,6 +224,7 @@ class Item extends CI_Controller
                         'categori_id' => $this->input->post('categori'),
                         'unit_id' => $this->input->post('unit'),
                         'price' => $this->input->post('price'),
+                        'price2' => $this->input->post('price2'),
                     );
                     $this->Admin_Model->editdata('tb_item', 'item_id', $id, $data);
                     if ($this->db->affected_rows() > 0) {
@@ -225,10 +232,6 @@ class Item extends CI_Controller
                     }
                     redirect('item');
                 }
-            }
-            if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Data berhasil disimpan');
-                redirect('item');
             }
         }
     }
@@ -259,5 +262,26 @@ class Item extends CI_Controller
         $data['row'] = $this->Admin_Model->formedit('tb_item', 'item_id', $id)->row();
         // $this->template->load('template', 'item/barcode_qrcode', $data);
         $this->load->view('product/item/qrcode_print', $data);
+    }
+    public function getitem()
+    {
+        if (isset($_POST['add_item'])) {
+            $item_id = $this->input->post('item_id');
+            $item = $this->Item_Model->tampildata($item_id);
+            if ($item->num_rows() > 0) {
+                $item = $this->Item_Model->tampildata($item_id)->row();
+                $params = array(
+                    "success" => true,
+                    "item_id" => $item->item_id,
+                    "item_name" => $item->name,
+                    "unit_name"    => $item->unit_name,
+                    "stock"      => $item->stock,
+                    "price"      => $item->price
+                );
+            } else {
+                $params = array("success" => false);
+            }
+            echo json_encode($params);
+        }
     }
 }

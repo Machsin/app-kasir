@@ -74,7 +74,7 @@ class Customer extends CI_Controller
         $this->form_validation->set_rules('phone', '', 'required', array('required' => 'Phone wajib diisi'));
         $this->form_validation->set_rules('address', '', 'required', array('required' => 'Address wajib diisi'));
         if ($this->form_validation->run() == FALSE) {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $customer = new stdClass();
                 $customer->customer_id = null;
                 $customer->name = null;
@@ -108,7 +108,7 @@ class Customer extends CI_Controller
                 }
             }
         } else {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $this->Admin_Model->simpandata('tb_customer', $data);
             } else if (isset($_POST['edit'])) {
                 $this->Admin_Model->editdata('tb_customer', 'customer_id', $id, $data);

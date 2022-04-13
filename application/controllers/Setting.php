@@ -30,6 +30,7 @@ class Setting extends CI_Controller
             'address' => $this->input->post('alamat'),
             'kode_struk' => $this->input->post('struk'),
             'kode_barcode' => $this->input->post('barcode'),
+            'kategori_harga' => $this->input->post('kategori_harga'),
         );
         $this->Admin_Model->editdata('tb_setting', 'setting_id', $id, $data);
         if ($this->db->affected_rows() > 0) {

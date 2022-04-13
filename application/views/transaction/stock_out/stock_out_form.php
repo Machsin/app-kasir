@@ -134,7 +134,33 @@
              $('#unit_name').val(unit_name);
              $('#stock').val(stock);
              $('#modal-item').modal('hide');
-
-         })
+         });
+         $(document).on('change', '#barcode', function() {
+         var item_id = $('#barcode').val();
+         $.ajax({
+             type: "POST",
+             url: "<?= base_url('item/getitem') ?>",
+             data: {
+                 'add_item': true,
+                 'item_id': item_id,
+             },
+             dataType: "json",
+             success: function(result) {
+                 if (result.success == true) {
+                     $('#item_id').val(result.item_id);
+                     $('#item_name').val(result.item_name);
+                     $('#unit_name').val(result.unit_name);
+                     $('#stock').val(result.stock);
+                 } else {
+                     alert('Barang tidak ada');
+                     $('#item_id').val('');
+                     $('#barcode').val('');
+                     $('#item_name').val('');
+                     $('#unit_name').val('');
+                     $('#stock').val('');
+                 }
+             }
+         });
+     });
      })
  </script>

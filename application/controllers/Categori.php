@@ -62,7 +62,7 @@ class Categori extends CI_Controller
         );
         $this->form_validation->set_rules('categori_name', '', 'required', array('required' => 'Nama wajib diisi'));
         if ($this->form_validation->run() == FALSE) {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $categori = new stdClass();
                 $categori->categori_id = null;
                 $categori->name = null;
@@ -90,7 +90,7 @@ class Categori extends CI_Controller
                 }
             } 
         } else {
-            if (isset($_POST['add'])) {
+            if (isset($_POST['tambah'])) {
                 $this->Admin_Model->simpandata('tb_categori', $data);
             } else if (isset($_POST['edit'])) {
                 $this->Admin_Model->editdata('tb_categori', 'categori_id', $id, $data);

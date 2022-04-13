@@ -14,7 +14,8 @@ if ($cart->num_rows() > 0) {
                 } ?>
                 <?= $uang; ?>
             </td>
-            <td id="total"><?=$c->total ?></td>
+            <td id="total" style="display: none;"><?=$c->total ?></td>
+            <td><?=indo_currency($c->total) ?></td>
             <td class="text-center" width="160px">
                 <a onclick="editData(<?= $c->cart_id; ?>)" class="btn btn-xs btn-primary" style="color: white;"><i class="fa fa-edit"></i> Update</a>
                 <a href="<?=base_url('sale/cart_del/'.$c->cart_id)?>" class="btn btn-xs btn-danger" style="color: white;"><i class="fa fa-trash"></i> Delete</a>

@@ -14,10 +14,10 @@
  <section class="content">
      <div class="box">
          <div class="box-header">
-             <h3 class="box-title">Add Data Barang Masuk / Pembelian</h3>
+             <h3 class="box-title">Tambah Data Barang Masuk / Pembelian</h3>
              <div class="pull-right">
                  <a href="<?= base_url('stock/in') ?>" class="btn btn-warning btn-flat">
-                     <i class="fa fa-undo"></i> Back
+                     <i class="fa fa-undo"></i> Kembali
                  </a>
              </div>
          </div>
@@ -65,9 +65,9 @@
                              <label>Supplier</label>
                              <select name="supplier" class="form-control">
                                  <option value="">- Pilih -</option>
-                                 <?php foreach($supplier  as $i => $data){
-                                  echo '<option value="'.$data->supplier_id.'">'.$data->name.'</option>';
-                                 }?>
+                                 <?php foreach ($supplier  as $i => $data) {
+                                        echo '<option value="' . $data->supplier_id . '">' . $data->name . '</option>';
+                                    } ?>
                              </select>
                          </div>
                          <div class="form-group">
@@ -145,5 +145,32 @@
              $('#modal-item').modal('hide');
 
          })
-     })
+     });
+     $(document).on('change', '#barcode', function() {
+         var item_id = $('#barcode').val();
+         $.ajax({
+             type: "POST",
+             url: "<?= base_url('item/getitem') ?>",
+             data: {
+                 'add_item': true,
+                 'item_id': item_id,
+             },
+             dataType: "json",
+             success: function(result) {
+                 if (result.success == true) {
+                     $('#item_id').val(result.item_id);
+                     $('#item_name').val(result.item_name);
+                     $('#unit_name').val(result.unit_name);
+                     $('#stock').val(result.stock);
+                 } else {
+                     alert('Barang tidak ada');
+                     $('#item_id').val('');
+                     $('#barcode').val('');
+                     $('#item_name').val('');
+                     $('#unit_name').val('');
+                     $('#stock').val('');
+                 }
+             }
+         });
+     });
  </script>

@@ -1,13 +1,13 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Printings
-        <small>Percetakan</small>
+        Penjualan
+        <small>Sales</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i></a></li>
-        <li>Transaction</li>
-        <li class="active">printings</li>
+        <li>Transaksi</li>
+        <li class="active">Penjualan</li>
     </ol>
 </section>
 <section class="content">
@@ -18,7 +18,7 @@
                     <table>
                         <tr>
                             <td style="vertical-align:top">
-                                <label for="date">Date</label>
+                                <label for="date">Tanggal</label>
                             </td>
                             <td>
                                 <div class="form-group">
@@ -38,7 +38,7 @@
                         </tr>
                         <tr>
                             <td style="vertical-align:top">
-                                <label for="customer">Customer</label>
+                                <label for="customer">Pelanggan</label>
                             </td>
                             <td>
                                 <div>
@@ -80,31 +80,11 @@
                         </tr>
                         <tr>
                             <td style="vertical-align:top">
-                                <label for="panjang">Panjang</label>
+                                <label for="qty">Qty</label>
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="number" id="p" value="1" min="0.1" class="form-control" step=".1">
-                                        <div class="input-group-addon">
-                                            Meter</i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align:top">
-                                <label for="lebar">Lebar</label>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="number" id="l" value="1" min="0.1" class="form-control" step=".1">
-                                        <div class="input-group-addon">
-                                            Meter</i>
-                                        </div>
-                                    </div>
+                                    <input type="number" id="qty" value="1" min="1" class="form-control">
                                 </div>
                             </td>
                         </tr>
@@ -113,7 +93,7 @@
                             <td>
                                 <div>
                                     <button type="button" id="add_cart" class="btn btn-primary">
-                                        <i class="fa fa-cart-plus"></i> Add
+                                        <i class="fa fa-cart-plus"></i> Tambah
                                     </button>
                                 </div>
                             </td>
@@ -144,17 +124,16 @@
                             <tr>
                                 <th>#</th>
                                 <th>Barcode</th>
-                                <th>Product Item</th>
-                                <th>Price</th>
-                                <th width="5%">Panjang</th>
-                                <th width="5%">Lebar</th>
-                                <th width="10%">Discount Item</th>
+                                <th>Nama Barang</th>
+                                <th>Harga</th>
+                                <th>Qty</th>
+                                <th width="10%">Diskon Barang</th>
                                 <th width="15%">Total</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="cart_tabel">
-                            <?php $this->view('transaction/printing/cart_data') ?>
+                            <?php $this->view('transaction/sale/cart_data') ?>
                         </tbody>
                     </table>
                 </div>
@@ -169,7 +148,7 @@
                     <table width="100%">
                         <tr>
                             <td style="vertical-align:top; width:30%">
-                                <label for="sub_total">Sub Total</label>
+                                <label for="sub_total">Total Awal</label>
                             </td>
                             <td>
                                 <div class="form-group">
@@ -179,7 +158,7 @@
                         </tr>
                         <tr>
                             <td style="vertical-align:top">
-                                <label for="discount">Discount</label>
+                                <label for="discount">Diskon</label>
                             </td>
                             <td>
                                 <div class="form-group">
@@ -189,7 +168,7 @@
                         </tr>
                         <tr>
                             <td style="vertical-align:top">
-                                <label for="grand_total">Grand Total</label>
+                                <label for="grand_total">Total Akhir</label>
                             </td>
                             <td>
                                 <div class="form-group">
@@ -207,7 +186,7 @@
                     <table width="100%">
                         <tr>
                             <td style="vertical-align:top; width:30%">
-                                <label for="cash">Cash</label>
+                                <label for="cash">Bayar</label>
                             </td>
                             <td>
                                 <div class="form-group">
@@ -217,7 +196,7 @@
                         </tr>
                         <tr>
                             <td style="vertical-align:top">
-                                <label for="change">Change</label>
+                                <label for="change">Kembalian</label>
                             </td>
                             <td>
                                 <div class="form-group">
@@ -235,7 +214,7 @@
                     <table width="100%">
                         <tr>
                             <td style="vertical-align:top">
-                                <label for="note">Note</label>
+                                <label for="note">Catatan</label>
                             </td>
                             <td>
                                 <div>
@@ -253,7 +232,7 @@
                     <i class="fa fa-refresh"></i> Cancel
                 </button><br><br>
                 <button id="process_payment" class="btn btn-flat btn-lg btn-success">
-                    <i class="fa fa-paper-plane-o"></i> Process Payment
+                    <i class="fa fa-paper-plane-o"></i> Proses Pembayaran
                 </button>
             </div>
         </div>
@@ -267,7 +246,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Add Product Item</h4>
+                <h4 class="modal-title">Daftar Data Barang</h4>
             </div>
             <div class="modal-body table-responsive">
                 <div class="container-fluid">
@@ -275,10 +254,10 @@
                         <thead>
                             <tr>
                                 <th>Barcode</th>
-                                <th>Name</th>
+                                <th>Nama Barang</th>
                                 <th>Unit</th>
-                                <th>Price</th>
-                                <th>Stock</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -288,7 +267,11 @@
                                     <td><?= $i->barcode; ?></td>
                                     <td><?= $i->name; ?></td>
                                     <td style="text-align: center;"><?= $i->unit_name; ?></td>
-                                    <td style="text-align: center;"><?= indo_currency($i->price); ?></td>
+                                    <?php if ($setting->kategori_harga == 'jual') { ?>
+                                        <td style="text-align: center;"><?= indo_currency($i->price); ?></td>
+                                    <?php } else { ?>
+                                        <td style="text-align: center;"><?= indo_currency($i->price2); ?></td>
+                                    <?php } ?>
                                     <td><?= $i->stock; ?></td>
                                     <td align="center">
                                         <button class="btn btn-xs btn-info" id="select" data-id="<?= $i->item_id; ?>" data-barcode="<?= $i->barcode; ?>" data-price="<?= $i->price; ?>" data-stock="<?= $i->stock; ?>">
@@ -322,9 +305,7 @@
         var item_id = $('#item_id').val();
         var price = $('#price').val();
         var stock = $('#stock').val();
-        var l = $('#l').val();
-        var p = $('#p').val();
-        var qty = l * p;
+        var qty = $('#qty').val();
         if (item_id == '') {
             alert('Product belum dipilih');
             $('#barcode').focus();
@@ -336,24 +317,22 @@
         } else {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('printing/process') ?>",
+                url: "<?= base_url('sale/process') ?>",
                 data: {
                     'add_cart': true,
                     'item_id': item_id,
                     'price': price,
-                    'p': p,
-                    'l': l,
+                    'qty': qty
                 },
                 dataType: "json",
                 success: function(result) {
                     if (result.success == true) {
-                        $('#cart_tabel').load('<?= base_url('printing/cart_data'); ?>', function() {
+                        $('#cart_tabel').load('<?= base_url('sale/cart_data'); ?>', function() {
                             calculate()
                         });
                         $('#item_id').val('');
                         $('#barcode').val('');
-                        $('#p').val(1);
-                        $('#l').val(1);
+                        $('#qty').val(1);
                         $('#barcode').focus();
                     } else {
                         alert('Gagal tambah item cart');
@@ -368,14 +347,14 @@
             var cart_id = $(this).data('cartid');
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('printing/cart_del') ?>",
+                url: "<?= base_url('sale/cart_del') ?>",
                 data: {
                     'cart_id': cart_id
                 },
                 dataType: "json",
                 success: function(result) {
                     if (result.success == true) {
-                        $('#cart_tabel').load('<?= base_url('printing/cart_data'); ?>', function() {
+                        $('#cart_tabel').load('<?= base_url('sale/cart_data'); ?>', function() {
 
                         });
                     } else {
@@ -407,8 +386,8 @@
             if (confirm('Ingin memproses transaksi ini?')) {
                 $.ajax({
                     type: "POST",
-                    url: "<?= base_url('printing/process') ?>",
-                    data: { 
+                    url: "<?= base_url('sale/process') ?>",
+                    data: {
                         'process_payment': true,
                         'customer_id': customer,
                         'sub_total': subtotal,
@@ -424,7 +403,7 @@
                         if (result.success == true) {
                             console.log('Print.......')
                             alert('Berhasil melakukan transaksi')
-                            window.open('<?= base_url('printing/cetak/') ?>' + result.printing_id,
+                            window.open('<?= base_url('sale/cetak/') ?>' + result.sale_id,
                                 '_blank')
                             window.location.reload();
                         } else {
@@ -441,7 +420,7 @@
         if (confirm('Ingin membatalkan pesanan?')) {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('printing/reset') ?>",
+                url: "<?= base_url('sale/reset') ?>",
                 data: {
                     'cancel_payment': true
                 },
@@ -449,7 +428,7 @@
                 success: function(result) {
                     if (result.success == true) {
                         console.log('terhapus')
-                        $('#cart_tabel').load('<?= base_url('printing/cart_data'); ?>', function() {
+                        $('#cart_tabel').load('<?= base_url('sale/cart_data'); ?>', function() {
                             calculate()
                         });
                     }

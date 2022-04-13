@@ -14,12 +14,13 @@ class Sale extends CI_Controller
     }
     public function index()
     {
+        $data['setting'] = $this->Admin_Model->formedit('tb_setting', 'setting_id', '1')->row();
         $data['customer'] = $this->Admin_Model->tampildata('tb_customer', 'customer_id');
         $data['item'] = $this->Item_Model->tampilitemsale();
         $data['cart'] = $this->Sale_Model->get_cart();
         $data['invoice'] = $this->Sale_Model->invoice_no();
         $this->load->view('template/header');
-        $this->load->view('transaction/sale/sale_form', $data);
+        $this->load->view('transaction/sale/sale_form2', $data);
         $this->load->view('template/footer');
     }
     public function cart_data()
