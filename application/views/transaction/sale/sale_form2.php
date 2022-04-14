@@ -292,7 +292,6 @@
     $(document).ready(function() {
         calculate()
     });
-
     $(document).on('click', '#select', function() {
         $('#item_id').val($(this).data('id'))
         $('#barcode').val($(this).data('barcode'))
