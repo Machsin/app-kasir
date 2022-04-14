@@ -121,12 +121,10 @@
                     <tr>
                         <th>#</th>
                         <th>Invoice</th>
-                        <th>Tanggal</th>
                         <th>Pelanggan</th>
                         <th>Total Harga</th>
                         <th>Diskon</th>
                         <th>Total Bayar</th>
-                        <th>Harga Sales</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -136,7 +134,6 @@
                         <tr>
                             <td style="width: 5%"><?= $no++ ?></td>
                             <td><?= $data->invoice ?></td>
-                            <td><?= indo_date($data->date) ?></td>
                             <td><?= $data->customer_name == '' ? 'Umum' : $data->customer_name ?></td>
                             <td><?= indo_currency($data->total_price) ?></td>
                             <td><?= $data->discount ?></td>
@@ -144,7 +141,7 @@
                         </tr>
                     <?php } ?>
                     <tr>
-                        <th colspan="6" style="text-align: center"> Total</th>
+                        <th colspan="5" style="text-align: center"> Total</th>
                         <td>
                             <?php
                             $total = 0;

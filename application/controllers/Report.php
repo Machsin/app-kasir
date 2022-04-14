@@ -7,7 +7,7 @@ class Report extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model(['Admin_Model', 'Report_Model']);
+        $this->load->model(['Admin_Model', 'Report_Model','Item_Model']);
         if (empty($this->session->userdata('username')) and empty($this->session->userdata('password'))) {
             redirect('login');
         }
@@ -102,5 +102,33 @@ class Report extends CI_Controller
     {
         $sale = $this->Report_Model->tampilproduct($id)->result();
         echo json_encode($sale);
+    }
+    public function report_laba()
+    {
+        $bln = date('m');
+        $thn = date('Y');
+        $data['setting'] = $this->Admin_Model->formedit('tb_setting','setting_id','1')->row();
+
+        if (isset($_POST['cetak'])) {
+            $bln = $this->input->post('bln');
+            $thn = $this->input->post('thn');
+            $awal = $thn . '-' . $bln . '-01';
+            $akhir = $thn . '-' . $bln . '-31';
+            $where = ['date >=' => $awal, 'date <=' => $akhir];
+            $data['resale'] = $this->Report_Model->tampildatasale($where);
+            $data['date'] = indo_date($awal) . ' s/d ' . indo_date($akhir);
+            $data['awal'] =$awal;
+            $data['akhir'] = $akhir;
+            $data['item'] = $this->Item_Model->tampildata();
+            $this->load->view('report/cetak_laba', $data);
+        } else {
+            $data['resale'] = $this->Report_Model->tampildatasale();
+            $data['bln'] = $bln;
+            $data['thn'] = $thn;
+
+            $this->load->view('template/header');
+            $this->load->view('report/laba', $data);
+            $this->load->view('template/footer');
+        }
     }
 }

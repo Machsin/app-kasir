@@ -42,8 +42,7 @@
         <ul class="treeview-menu">
             <li class="<?=$this->uri->segment('2')=='report_sale'?'active':null?>"><a href="<?= base_url('report/report_sale') ?>"><i class="fa fa-circle-o"></i> Penjualan</a></li>
             <li class="<?=$this->uri->segment('2')=='report_stock'?'active':null?>"><a href="<?= base_url('report/report_stock') ?>"><i class="fa fa-circle-o"></i> Stok</a></li>
-            <li class="<?=$this->uri->segment('2')=='report_laba_kotor'?'active':null?>"><a href="<?= base_url('report/report_laba_kotor') ?>"><i class="fa fa-circle-o"></i> Laba Bersih</a></li>
-            <li class="<?=$this->uri->segment('2')=='report_laba_bersih'?'active':null?>"><a href="<?= base_url('report/report_laba_bersih') ?>"><i class="fa fa-circle-o"></i> Laba Kotor</a></li>
+            <li class="<?=$this->uri->segment('2')=='report_laba'?'active':null?>"><a href="<?= base_url('report/report_laba') ?>"><i class="fa fa-circle-o"></i> Laba Kotor & Bersih</a></li>
         </ul>
     </li>
     <?php if ($this->session->userdata('level') == 1) { ?>
