@@ -524,6 +524,9 @@
         } else if (cash < 1) {
             alert('Masukkan Uang Cash');
             $('#cash').focus();
+        }else if(change < 0){
+            alert('Uang Kurang');
+            $('#cash').focus();
         } else {
             if (confirm('Ingin memproses transaksi ini?')) {
                 $.ajax({

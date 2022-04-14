@@ -7,9 +7,91 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cetak Laporan Stok</title>
 </head>
+<style type="text/css">
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #FFFF;
+        font: 12pt "Arial";
+    }
 
+    * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+
+    .page {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 7mm;
+        margin: 3mm auto;
+        border: 1px #FFF solid;
+        border-radius: 5px;
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    @media print {
+
+        html,
+        body {
+            width: 210mm;
+            height: 297mm;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .page {
+            margin: 0;
+            border: initial;
+            border-radius: initial;
+            width: initial;
+            min-height: initial;
+            box-shadow: initial;
+            background: initial;
+            page-break-after: always;
+        }
+
+    }
+
+    #cetak {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #cetak td,
+    #cetak th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #cetak tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #cetak tr:hover {
+        background-color: #ddd;
+    }
+
+    #cetak th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+</style>
 <body onload="window.print()">
-    <div class="content">
+    <div class="book">
+        <div class="page">
         <div class="title" style="text-align: center">
             <b>
                 <h1 style="margin-top:0px;margin-bottom:0px"><?=$setting->nama_toko?></h1>
@@ -33,17 +115,16 @@
             </table>
         </div>
         <div class="body">
-            <table border="1" width="100%">
+            <table id="cetak" width="100%" style="font-size: small;">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Tipe</th>
-                        <th>Tanggal</th>
                         <th>Pengguna</th>
                         <th>Supplier</th>
                         <th>Detail</th>
                         <th>Nama Barang</th>
-                        <th>Harga Beli</th>
+                        <th>Harga Sales </th>
                         <th>Jumlah</th>
                         <th>Total</th>
                     </tr>
@@ -55,7 +136,6 @@
                         <tr>
                             <td style="width: 5%"><?= $no++ ?></td>
                             <td><?= $data->type ?></td>
-                            <td><?= indo_date($data->date) ?></td>
                             <td><?= $data->user_name ?></td>
                             <td><?= $data->supplier_name == '' ? '-' : $data->supplier_name ?></td>
                             <td><?= $data->detail ?></td>
@@ -66,7 +146,7 @@
                         </tr>
                     <?php } ?>
                     <tr>
-                        <th colspan="8" style="text-align: center"> Total</th>
+                        <th colspan="7" style="text-align: center"> Total</th>
                         <td>
                             <?php
                             $qty = 0;
@@ -88,6 +168,7 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 </body>

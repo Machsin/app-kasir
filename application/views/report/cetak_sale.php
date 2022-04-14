@@ -116,7 +116,7 @@
             <br>
         </div>
         <div class="body">
-            <table id="cetak" width="100%">
+            <table id="cetak" width="100%" style="font-size: small;">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -126,6 +126,7 @@
                         <th>Total Harga</th>
                         <th>Diskon</th>
                         <th>Total Bayar</th>
+                        <th>Harga Sales</th>
                     </tr>
                 </thead>
                 <tbody>
