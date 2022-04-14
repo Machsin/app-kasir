@@ -31,6 +31,7 @@ class Report extends CI_Controller
             $data['restock'] = $this->Report_Model->tampildatastocks($where);
             $data['bln'] = $bln;
             $data['thn'] = $thn;
+            $data['tipe'] = $tipe;
             $data['supplier'] = $this->Admin_Model->tampildata('tb_supplier', 'supplier_id');
 
             $this->load->view('template/header');
@@ -50,6 +51,7 @@ class Report extends CI_Controller
             $data['restock'] = $this->Report_Model->tampildatastock();
             $data['bln'] = $bln;
             $data['thn'] = $thn;
+            $data['tipe'] = '';
             $data['supplier'] = $this->Admin_Model->tampildata('tb_supplier', 'supplier_id');
 
             $this->load->view('template/header');

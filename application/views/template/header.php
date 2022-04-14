@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini <?= $this->uri->segment(1) == 'sale' || $this->uri->segment(1) == 'printing' ? 'sidebar-collapse' : null ?>">
+<body class="hold-transition skin-blue sidebar-mini <?= $this->uri->segment(1) == 'sale' || $this->uri->segment(1) == 'item' || $this->uri->segment(1) == 'report' ? 'sidebar-collapse' : null ?>">
     <!-- Site wrapper -->
     <div class="wrapper">
 

@@ -12,7 +12,7 @@
 
  <!-- Main content -->
  <section class="content">
- <?php $this->view('message') ?>
+     <?php $this->view('message') ?>
      <div class="box">
          <div class="box-header">
              <h3 class="box-title"><?= ucfirst($page) ?> Data Barang</h3>
@@ -25,18 +25,18 @@
          <div class="box-body table-responsive">
              <div class="categori">
                  <div class="col-md-4 col-md-offset-4">
-                     <?php echo form_open_multipart('item/process') ?>
+                     <?php echo form_open_multipart('item/process')  ?>
                      <!-- <?= validation_errors() ?> -->
-                     <input type="hidden" name="item_id" value="<?= $item->item_id ?>"> 
+                     <input type="hidden" name="item_id" value="<?= $item->item_id ?>">
                      <input type="hidden" name="image" value="<?= $item->image ?>">
                      <div class="form-group <?= form_error('barcode') ? 'has-error' : null ?>">
                          <label>Barcode *</label>
-                         <input type="text" name="barcode" value="<?= $item->barcode == '' ? set_value('barcode') : $item->barcode  ?>" class="form-control">
+                         <input type="text" id="barcode" name="barcode" value="<?= $item->barcode == '' ? set_value('barcode') : $item->barcode  ?>" class="form-control" autofocus onkeypress="return nextfield(event, 'name')">
                          <?= form_error('barcode') ?>
                      </div>
                      <div class="form-group <?= form_error('name') ? 'has-error' : null ?>">
                          <label>Nama *</label>
-                         <input type="text" name="name" value="<?= $item->name == '' ? set_value('name') : $item->name  ?>" class="form-control">
+                         <input type="text" id="name" name="name" value="<?= $item->name == '' ? set_value('name') : $item->name  ?>" class="form-control">
                          <?= form_error('name') ?>
                      </div>
                      <div class="form-group  <?= form_error('categori') ? 'has-error' : null ?>">
@@ -60,7 +60,7 @@
                          <?= form_error('unit') ?>
                      </div>
                      <div class="form-group <?= form_error('price') ? 'has-error' : null ?>">
-                         <label>Harga Jual *</label>
+                         <label>Harga Sales *</label>
                          <input type="number" name="price" value="<?= $item->price == '' ? set_value('price') : $item->price  ?>" class="form-control">
                          <?= form_error('price') ?>
                      </div>
@@ -68,6 +68,11 @@
                          <label>Harga Kulakan *</label>
                          <input type="number" name="price2" value="<?= $item->price2 == '' ? set_value('price2') : $item->price2  ?>" class="form-control">
                          <?= form_error('price2') ?>
+                     </div>
+                     <div class="form-group <?= form_error('price3') ? 'has-error' : null ?>">
+                         <label>Harga Jual *</label>
+                         <input type="number" name="price3" value="<?= $item->price3 == '' ? set_value('price3') : $item->price3  ?>" class="form-control">
+                         <?= form_error('price3') ?>
                      </div>
                      <div class="form-group" style="display: none;">
                          <label>Gambar</label>
@@ -79,10 +84,17 @@
                              <i class="fa fa-paper-plane"></i> Save</button>
                          <button type="reset" class="btn btn-flat">Reset</button>
                      </div>
-                     <?php echo form_close()?>
+                     <?php echo form_close() ?>
                  </div>
              </div>
          </div>
      </div>
  </section>
+ <script>
+     function nextfield(event,id){
+         if(event.keyCode == 13 || event.which == 13){
+             document.getElementById(id).focus()
+         }
+     }
+ </script>
  <!-- /.content -->

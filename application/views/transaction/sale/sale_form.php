@@ -173,7 +173,7 @@
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="number" id="discount" value="0" min="0" class="form-control">
+                                    <input type="number" id="discount" min="0" class="form-control" placeholder="0">
                                 </div>
                             </td>
                         </tr>
@@ -203,7 +203,7 @@
                         <tr>
                             <td>
                                 <div class="form-group">
-                                    <input type="number" id="cash" value="0" min="0" class="form-control" style="font-size: 30px;height: 85px;">
+                                    <input type="number" placeholder="0" id="cash" min="0" class="form-control" style="font-size: 30px;height: 85px;" onkeypress="return nextfield(event)">
                                 </div>
                             </td>
                         </tr>
@@ -284,10 +284,14 @@
                                     <td><?= $i->barcode; ?></td>
                                     <td><?= $i->name; ?></td>
                                     <td style="text-align: center;"><?= $i->unit_name; ?></td>
-                                    <td style="text-align: center;"><?= indo_currency($i->price); ?></td>
+                                    <?php if ($setting->kategori_harga == 'kulakan') { ?>
+                                        <td style="text-align: center;"><?= indo_currency($i->price2); ?></td>
+                                    <?php } else { ?>
+                                        <td style="text-align: center;"><?= indo_currency($i->price3); ?></td>
+                                    <?php } ?>
                                     <td><?= $i->stock; ?></td>
                                     <td align="center">
-                                        <button class="btn btn-xs btn-info" id="select" data-id="<?= $i->item_id; ?>" data-barcode="<?= $i->barcode; ?>" data-price="<?= $i->price; ?>" data-stock="<?= $i->stock; ?>">
+                                        <button class="btn btn-xs btn-info" id="select" data-id="<?= $i->item_id; ?>" data-item_name="<?= $i->name; ?>" data-barcode="<?= $i->barcode; ?>" data-price="<?= $i->price; ?>" data-stock="<?= $i->stock; ?>">
                                             <i class="fa fa-check"></i> Select
                                         </button>
                                     </td>
@@ -308,6 +312,7 @@
 
     $(document).on('click', '#select', function() {
         $('#item_id').val($(this).data('id'))
+        $('#item_name').val($(this).data('item_name'))
         $('#barcode').val($(this).data('barcode'))
         $('#price').val($(this).data('price'))
         $('#stock').val($(this).data('stock'))
@@ -380,53 +385,7 @@
     });
 
     $(document).on('click', '#process_payment', function() {
-        var subtotal = $('#sub_total').val();
-        var customer = $('#customer_id').val();
-        var discount = $('#discount').val();
-        var grandtotal = $('#grand_total').val();
-        var cash = $('#cash').val();
-        var change = $('#change').val();
-        var note = $('#note').val();
-        var date = $('#date').val();
-
-        if (subtotal < 1) {
-            alert('Product belum dipilih');
-            $('#barcode').focus();
-        } else if (cash < 1) {
-            alert('Masukkan Uang Cash');
-            $('#cash').focus();
-        } else {
-            if (confirm('Ingin memproses transaksi ini?')) {
-                $.ajax({
-                    type: "POST",
-                    url: "<?= base_url('sale/process') ?>",
-                    data: {
-                        'process_payment': true,
-                        'customer_id': customer,
-                        'sub_total': subtotal,
-                        'discount': discount,
-                        'grand_total': grandtotal,
-                        'cash': cash,
-                        'change': change,
-                        'note': note,
-                        'date': date
-                    },
-                    dataType: "json",
-                    success: function(result) {
-                        if (result.success == true) {
-                            console.log('Print.......')
-                            alert('Berhasil melakukan transaksi')
-                            window.open('<?= base_url('sale/cetak/') ?>' + result.sale_id,
-                                '_blank')
-                            window.location.reload();
-                        } else {
-                            alert('gagal melakukan transaksi');
-                            console.log('gagal.......')
-                        }
-                    }
-                });
-            }
-        }
+        process_payment();
     });
 
     $(document).on('click', '#cancel_payment', function() {
@@ -496,6 +455,12 @@
             dataType: "json",
             success: function(result) {
                 if (result.success == true) {
+                    if(result.stock - 1 < 0){
+                        alert('Stock tidak mencukupi');
+                        $('#item_id').val('');
+                        $('#barcode').val('');
+                        $('#barcode').focus();
+                    }else{
                     $('#item_id').val(result.item_id);
                     $('#item_name').val(result.item_name);
                     $('#unit_name').val(result.unit_name);
@@ -524,7 +489,8 @@
                                 alert('Gagal tambah item cart');
                             }
                         }
-                    });
+                    })
+                    };
                 } else {
                     alert('Barang tidak ada');
                     $('#item_id').val('');
@@ -537,13 +503,71 @@
             }
         });
     });
+    function nextfield(event){
+	    if(event.keyCode == 13 || event.which == 13){
+	    process_payment();
+    	}
+    }
+    function process_payment(){
+        var subtotal = $('#sub_total').val();
+        var customer = $('#customer_id').val();
+        var discount = $('#discount').val();
+        var grandtotal = $('#grand_total').val();
+        var cash = $('#cash').val();
+        var change = $('#change').val();
+        var note = $('#note').val();
+        var date = $('#date').val();
+
+        if (subtotal < 1) {
+            alert('Product belum dipilih');
+            $('#barcode').focus();
+        } else if (cash < 1) {
+            alert('Masukkan Uang Cash');
+            $('#cash').focus();
+        } else {
+            if (confirm('Ingin memproses transaksi ini?')) {
+                $.ajax({
+                    type: "POST",
+                    url: "<?= base_url('sale/process') ?>",
+                    data: {
+                        'process_payment': true,
+                        'customer_id': customer,
+                        'sub_total': subtotal,
+                        'discount': discount,
+                        'grand_total': grandtotal,
+                        'cash': cash,
+                        'change': change,
+                        'note': note,
+                        'date': date
+                    },
+                    dataType: "json",
+                    success: function(result) {
+                        if (result.success == true) {
+                            console.log('Print.......')
+                            alert('Berhasil melakukan transaksi')
+                            if (confirm('Ingin mencetak nota')) {
+                                window.open('<?= base_url('sale/cetak/') ?>' + result.sale_id,
+                                    '_blank')
+                                window.location.reload();
+                            } else {
+                                window.location.reload();
+                            }
+                        } else {
+                            alert('gagal melakukan transaksi');
+                            console.log('gagal.......')
+                        }
+                    }
+                });
+            }
+        }
+    }
     //fungsi formatrupiah
     function formatRupiah(angka, prefix) {
         var minus = angka.charAt(0);
-        if(minus=='-'){
+        if (minus == '-') {
             minus = '-';
-        }else{
-            minus ='';
+        } else {
+            minus = '';
         }
         var number_string = angka.replace(/[^,\d]/g, '').toString(),
             split = number_string.split(','),
@@ -558,6 +582,6 @@
         }
 
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? minus+rupiah : (minus+rupiah ? 'Rp. ' + minus+rupiah : '');
+        return prefix == undefined ? minus + rupiah : (minus + rupiah ? 'Rp. ' + minus + rupiah : '');
     }
 </script>

@@ -11,6 +11,7 @@
  </section>
 
  <!-- Main content -->
+  <!-- data barang -->
  <section class="content">
      <?php $this->view('message') ?>
      <div class="box">
@@ -31,8 +32,9 @@
                          <th>Nama</th>
                          <th>Kategori</th>
                          <th>Satuan</th>
-                         <th>Harga Jual</th>
+                         <th>Harga Sales</th>
                          <th>Harga Kulakan</th>
+                         <th>Harga Jual</th>
                          <th>Stok</th>
                          <th>Aksi</th>
                      </tr>
@@ -53,6 +55,7 @@
                              <td><?= $data->unit_name ?></td>
                              <td><?= $data->price ?></td>
                              <td><?= $data->price2 ?></td>
+                             <td><?= $data->price3 ?></td>
                              <td><?= $data->stock ?></td>
                              <td class="text-center" width="160px">
                                  <a href="<?= base_url('item/edit/' . $data->item_id) ?>" class="btn btn-primary btn-xs">
@@ -69,4 +72,47 @@
          </div>
      </div>
  </section>
+ <section class="content">
+     <?php $this->view('message') ?>
+     <div class="box">
+         <div class="box-header">
+             <h3 class="box-title">Stok Barang Hampir Habis</h3>
+         </div>
+         <div class="box-body table-responsive">
+             <table class="table table-bordered table-striped" id="table1">
+                 <thead>
+                     <tr>
+                         <th>#</th>
+                         <th>Barcode</th>
+                         <th>Nama</th>
+                         <th>Kategori</th>
+                         <th>Satuan</th>
+                         <th>Harga Sales</th>
+                         <th>Harga Kulakan</th>
+                         <th>Harga Jual</th>
+                         <th>Stok</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     <?php $no = 1;
+                        foreach ($itemstock->result() as $key => $data) {
+                        ?>
+                         <tr>
+                             <td style="width: 5%"><?= $no++ ?></td>
+                             <td><?= $data->barcode ?></td>
+                             <td><?= $data->name ?></td>
+                             <td><?= $data->categori_name ?></td>
+                             <td><?= $data->unit_name ?></td>
+                             <td><?= $data->price ?></td>
+                             <td><?= $data->price2 ?></td>
+                             <td><?= $data->price3 ?></td>
+                             <td><?= $data->stock ?></td>
+                         </tr>
+                     <?php } ?>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+ </section>
  <!-- /.content -->
+ <!-- stok barang hampir habis -->

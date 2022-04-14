@@ -87,8 +87,8 @@
                              <div class="form-group">
                                  <label for="Tipe">Tipe</label>
                                  <select class="form-control" name="tipe">
-                                     <option value="masuk">Masuk</option>
-                                     <option value="keluar">Keluar</option>
+                                     <option value="masuk" <?=$tipe=='masuk'?'selected':null?>>Masuk</option>
+                                     <option value="keluar" <?=$tipe=='keluar'?'selected':null?>>Keluar</option>
                                  </select>
                              </div>
                          </div>

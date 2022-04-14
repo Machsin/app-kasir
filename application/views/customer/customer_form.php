@@ -17,7 +17,7 @@
              <h3 class="box-title"><?= ucfirst($page) ?> Data Pelanggan</h3>
              <div class="pull-right">
                  <a href="<?= base_url('customer') ?>" class="btn btn-warning btn-flat">
-                     <i class="fa fa-undo"></i> Back
+                     <i class="fa fa-undo"></i> Kembali
                  </a>
              </div>
          </div>

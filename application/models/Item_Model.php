@@ -14,6 +14,16 @@ class Item_model extends CI_Model
         }
         return $query->get();
     }
+    public function tampildatastok()
+    {
+        $query = $this->db->query("SELECT `tb_item`.*, `tb_categori`.`name` as `categori_name`, `tb_unit`.`name` as `unit_name` 
+                                    FROM `tb_item` 
+                                    LEFT JOIN `tb_categori` ON `tb_categori`.`categori_id` = `tb_item`.`categori_id` 
+                                    LEFT JOIN `tb_unit` ON `tb_unit`.`unit_id` = `tb_item`.`unit_id` 
+                                    WHERE `tb_item`.`stock` < 10
+                                    ORDER BY `stock` ASC");
+        return $query;
+    }
     public function tampilitemsale()
     {
         $query = $this->db->select('tb_item.*, tb_categori.name as categori_name, tb_unit.name as unit_name')
