@@ -48,6 +48,7 @@
     <?php if ($this->session->userdata('level') == 1) { ?>
         <li class="header">SETTINGS</li>
         <li class="<?= $this->uri->segment('1') == 'user' ? 'active' : null ?>"><a href="<?= base_url('user') ?>"><i class="fa fa-user"></i> <span>Pengguna</span></a></li>
-        <li class="<?= $this->uri->segment('1') == 'setting' ? 'active' : null ?>"><a href="<?= base_url('setting') ?>"><i class="fa fa-user"></i> <span>Pengaturan</span></a></li>
+        <li class="<?= $this->uri->segment('1') == 'setting' ? 'active' : null ?>"><a href="<?= base_url('setting') ?>"><i class="fa fa-cogs"></i> <span>Pengaturan</span></a></li>
+        <li class="<?= $this->uri->segment('1') == 'backup' ? 'active' : null ?>"><a href="<?= base_url('backup') ?>"><i class="fa fa-database"></i> <span>Backup & Restore Data</span></a></li>
     <?php } ?>
 </ul>

@@ -13,7 +13,7 @@
         height: 100%;
         margin: 0;
         padding: 0;
-        background-color: #FFFF;
+        background: #CCCCCC;
         font: 12pt "Arial";
     }
 
@@ -27,7 +27,7 @@
         min-height: 297mm;
         padding: 7mm;
         margin: 3mm auto;
-        border: 1px #FFF solid;
+        border: solid 1px black;
         border-radius: 5px;
         background: white;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -89,72 +89,73 @@
         color: white;
     }
 </style>
+
 <body onload="window.print()">
     <div class="book">
         <div class="page">
-        <div class="title" style="text-align: center">
-            <b>
-                <h1 style="margin-top:0px;margin-bottom:0px"><?= $setting->nama_toko ?></h1>
-            </b>
-            <?= $setting->address ?>
-            <br>
-            <?= $setting->phone ?>
-        </div>
-        <div class="head">
-            <table>
-                <tr style="text-align: left">
-                    <td width=150px>Laporan Penjualan</td>
-                    <td>:</td>
-                    <td><?= $date ?></td>
-                </tr>
-                <tr style="text-align: left">
-                    <td>Tanggal Cetak</td>
-                    <td>:</td>
-                    <td><?php echo date('d-m-Y') ?></td>
-                </tr>
-            </table>
-            <br>
-        </div>
-        <div class="body">
-            <table id="cetak" width="100%" style="font-size: small;">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Invoice</th>
-                        <th>Pelanggan</th>
-                        <th>Total Harga</th>
-                        <th>Diskon</th>
-                        <th>Total Bayar</th>
+            <div class="title" style="text-align: center">
+                <b>
+                    <h1 style="margin-top:0px;margin-bottom:0px"><?= $setting->nama_toko ?></h1>
+                </b>
+                <?= $setting->address ?>
+                <br>
+                <?= $setting->phone ?>
+            </div>
+            <div class="head">
+                <table>
+                    <tr style="text-align: left">
+                        <td width=150px>Laporan Penjualan</td>
+                        <td>:</td>
+                        <td><?= $date ?></td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php $no = 1;
-                    foreach ($resale->result() as $key => $data) {
-                    ?>
+                    <tr style="text-align: left">
+                        <td>Tanggal Cetak</td>
+                        <td>:</td>
+                        <td><?php echo date('d-m-Y') ?></td>
+                    </tr>
+                </table>
+                <br>
+            </div>
+            <div class="body">
+                <table id="cetak" width="100%" style="font-size: small;">
+                    <thead>
                         <tr>
-                            <td style="width: 5%"><?= $no++ ?></td>
-                            <td><?= $data->invoice ?></td>
-                            <td><?= $data->customer_name == '' ? 'Umum' : $data->customer_name ?></td>
-                            <td><?= indo_currency($data->total_price) ?></td>
-                            <td><?= $data->discount ?></td>
-                            <td><?= indo_currency($data->final_price) ?></td>
+                            <th>#</th>
+                            <th>Invoice</th>
+                            <th>Pelanggan</th>
+                            <th>Total Harga</th>
+                            <th>Diskon</th>
+                            <th>Total Bayar</th>
                         </tr>
-                    <?php } ?>
-                    <tr>
-                        <th colspan="5" style="text-align: center"> Total</th>
-                        <td>
-                            <?php
-                            $total = 0;
-                            foreach ($resale->result() as $key => $data) {
-                                $total = $total + $data->final_price;
-                            }
-                            echo indo_currency($total)
-                            ?>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        <?php $no = 1;
+                        foreach ($resale->result() as $key => $data) {
+                        ?>
+                            <tr>
+                                <td style="width: 5%"><?= $no++ ?></td>
+                                <td><?= $data->invoice ?></td>
+                                <td><?= $data->customer_name == '' ? 'Umum' : $data->customer_name ?></td>
+                                <td><?= indo_currency($data->total_price) ?></td>
+                                <td><?= $data->discount ?></td>
+                                <td><?= indo_currency($data->final_price) ?></td>
+                            </tr>
+                        <?php } ?>
+                        <tr>
+                            <th colspan="5" style="text-align: center"> Total</th>
+                            <td>
+                                <?php
+                                $total = 0;
+                                foreach ($resale->result() as $key => $data) {
+                                    $total = $total + $data->final_price;
+                                }
+                                echo indo_currency($total)
+                                ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>

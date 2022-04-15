@@ -65,12 +65,12 @@
                          <?= form_error('price') ?>
                      </div>
                      <div class="form-group <?= form_error('price2') ? 'has-error' : null ?>">
-                         <label>Harga Kulakan *</label>
+                         <label>Harga Jual *</label>
                          <input type="number" name="price2" value="<?= $item->price2 == '' ? set_value('price2') : $item->price2  ?>" class="form-control">
                          <?= form_error('price2') ?>
                      </div>
                      <div class="form-group <?= form_error('price3') ? 'has-error' : null ?>">
-                         <label>Harga Jual *</label>
+                         <label>Harga Kulakan *</label>
                          <input type="number" name="price3" value="<?= $item->price3 == '' ? set_value('price3') : $item->price3  ?>" class="form-control">
                          <?= form_error('price3') ?>
                      </div>
