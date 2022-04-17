@@ -33,7 +33,7 @@
              <a href="<?= base_url('item/barcode_print/' . $row->item_id) ?>" target="_blank" class="btn btn-default btn-sm"> <i class="fa fa-print"></i> Print </a>
          </div>
      </div>
-     <div class="box">
+     <div class="box" style="display: none;">
          <div class="box-header">
              <h3 class="box-title">QR-Code Generator <i class="fa fa-qrcode"></i></h3>
          </div>

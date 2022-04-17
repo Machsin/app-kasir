@@ -122,8 +122,10 @@ class Sale_Model extends CI_Model
 
     public function get_sale_detail($sale_id = null)
     {
+        $this->db->select('tb_sale_detail.*,tb_item.name as name,tb_unit.name as name_unit');
         $this->db->from('tb_sale_detail');
         $this->db->join('tb_item', 'tb_sale_detail.item_id=tb_item.item_id');
+        $this->db->join('tb_unit', 'tb_item.unit_id=tb_unit.unit_id');
         if ($sale_id != null) {
             $this->db->where('tb_sale_detail.sale_id', $sale_id);
         }

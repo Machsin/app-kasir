@@ -36,6 +36,15 @@ class Setting extends CI_Controller
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('success', 'Data berhasil disimpan');
             redirect('setting');
+        }else{
+            $this->session->set_flashdata('error', 'Data gagal disimpan');
+            redirect('setting');
         }
+    }
+    public function cekip()
+    {
+        $this->load->view('template/header');
+        $this->load->view('cekip');
+        $this->load->view('template/footer');
     }
 }

@@ -135,7 +135,8 @@
                                          <a id="set_dtl" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal-detail" data-invoice="<?= $data->invoice ?>" data-date="<?= $data->date ?>" data-total="<?= $data->total_price ?>" data-diskon="<?= $data->discount ?>" data-totalbayar="<?= $data->final_price ?>" data-customer="<?= $data->customer_name ?>" data-kasir="<?= $data->user_name ?>" data-tunai="<?= $data->cash ?>" data-kembalian="<?= $data->uang_kembalian ?>" data-saleid="<?= $data->sale_id ?>">
                                              <i class="fa fa-eye"></i> Detail
                                          </a>
-                                         <a href="<?=base_url('sale/cetak/'.$data->sale_id)?>" class="btn btn-primary btn-xs" target="_blank"><i class="fa fa-print"></i> Print
+                                         <!-- <a href="<?=base_url('sale/cetak/'.$data->sale_id)?>" class="btn btn-primary btn-xs" target="_blank"><i class="fa fa-print"></i> Print -->
+                                         <a href="<?=base_url('sale/cetak_struk/'.$data->sale_id)?>" class="btn btn-primary btn-xs"><i class="fa fa-print"></i> Print
                                      </td>
                                  </tr>
                              <?php } ?>

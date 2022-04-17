@@ -22,25 +22,27 @@
                      <form action="<?= base_url('setting/process') ?>" method="post">
                          <!-- <?= validation_errors() ?> -->
                          <input type="hidden" name="setting_id" value="<?= $setting->setting_id ?>">
-                         <div class="form-group <?= form_error('setting_name') ? 'has-error' : null ?>">
-                             <label>Nama Toko*</label>
-                             <input type="text" name="setting_name" value="<?= $setting->nama_toko == '' ? set_value('setting_name') : $setting->nama_toko  ?>" class="form-control">
-                             <?= form_error('setting_name') ?>
-                         </div>
-                         <div class="form-group <?= form_error('pemilik') ? 'has-error' : null ?>">
-                             <label>Pemilik Toko *</label>
-                             <input type="text" name="pemilik" value="<?= $setting->pemilik_toko == '' ? set_value('pemilik') : $setting->pemilik_toko ?>" class="form-control">
-                             <?= form_error('pemilik') ?>
-                         </div>
-                         <div class="form-group <?= form_error('telp') ? 'has-error' : null ?>">
-                             <label>No. Telepon *</label>
-                             <input type="number" name="telp" value="<?= $setting->phone == '' ? set_value('telp') : $setting->phone ?>" class="form-control">
-                             <?= form_error('telp') ?>
-                         </div>
-                         <div class="form-group <?= form_error('alamat') ? 'has-error' : null ?>">
-                             <label>Alamat * </label>
-                             <textarea name="alamat" class="form-control"><?= $setting->address ?></textarea>
-                             <?= form_error('alamat') ?>
+                         <div style="<?=$this->session->userdata('level')=='2'?'display:none':null?>">
+                            <div class="form-group <?= form_error('setting_name') ? 'has-error' : null ?>">
+                                <label>Nama Toko*</label>
+                                <input type="text" name="setting_name" value="<?= $setting->nama_toko == '' ? set_value('setting_name') : $setting->nama_toko  ?>" class="form-control">
+                                <?= form_error('setting_name') ?>
+                            </div>
+                            <div class="form-group <?= form_error('pemilik') ? 'has-error' : null ?>">
+                                <label>Pemilik Toko *</label>
+                                <input type="text" name="pemilik" value="<?= $setting->pemilik_toko == '' ? set_value('pemilik') : $setting->pemilik_toko ?>" class="form-control">
+                                <?= form_error('pemilik') ?>
+                            </div>
+                            <div class="form-group <?= form_error('telp') ? 'has-error' : null ?>">
+                                <label>No. Telepon *</label>
+                                <input type="number" name="telp" value="<?= $setting->phone == '' ? set_value('telp') : $setting->phone ?>" class="form-control">
+                                <?= form_error('telp') ?>
+                            </div>
+                            <div class="form-group <?= form_error('alamat') ? 'has-error' : null ?>">
+                                <label>Alamat * </label>
+                                <textarea name="alamat" class="form-control"><?= $setting->address ?></textarea>
+                                <?= form_error('alamat') ?>
+                            </div>
                          </div>
                          <div class="form-group  <?= form_error('hargajual') ? 'has-error' : null ?>">
                              <label>Kategori Harga *</label>

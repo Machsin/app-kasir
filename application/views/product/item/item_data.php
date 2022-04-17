@@ -53,9 +53,9 @@
                              <td><?= $data->name ?></td>
                              <td><?= $data->categori_name ?></td>
                              <td><?= $data->unit_name ?></td>
-                             <td><?= $data->price ?></td>
-                             <td><?= $data->price2 ?></td>
-                             <td><?= $data->price3 ?></td>
+                             <td><?= indo_currency($data->price )?></td>
+                             <td><?= indo_currency($data->price2) ?></td>
+                             <td><?= indo_currency($data->price3) ?></td>
                              <td><?= $data->stock ?></td>
                              <td class="text-center" width="160px">
                                  <a href="<?= base_url('item/edit/' . $data->item_id) ?>" class="btn btn-primary btn-xs">

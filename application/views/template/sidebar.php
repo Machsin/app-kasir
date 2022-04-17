@@ -34,6 +34,7 @@
             <li class="<?=$this->uri->segment('2')=='out'?'active':null?>"><a href="<?= base_url('stock/out') ?>"><i class="fa fa-circle-o"></i> Stok Keluar</a></li>
         </ul>
     </li>
+    <?php if($this->session->userdata('level')=='1'){?>
     <li class="treeview <?= $this->uri->segment('1') == 'report' ? 'active' : null ?>">
         <a href="#">
             <i class="fa fa-pie-chart"></i> <span>Laporan</span>
@@ -45,10 +46,17 @@
             <li class="<?=$this->uri->segment('2')=='report_laba'?'active':null?>"><a href="<?= base_url('report/report_laba') ?>"><i class="fa fa-circle-o"></i> Laba Kotor & Bersih</a></li>
         </ul>
     </li>
-    <?php if ($this->session->userdata('level') == 1) { ?>
+    
+    <?php } if ($this->session->userdata('level') == 1) { ?>
         <li class="header">SETTINGS</li>
         <li class="<?= $this->uri->segment('1') == 'user' ? 'active' : null ?>"><a href="<?= base_url('user') ?>"><i class="fa fa-user"></i> <span>Pengguna</span></a></li>
         <li class="<?= $this->uri->segment('1') == 'setting' ? 'active' : null ?>"><a href="<?= base_url('setting') ?>"><i class="fa fa-cogs"></i> <span>Pengaturan</span></a></li>
+        <li class="<?= $this->uri->segment('1') == 'cekip' ? 'active' : null ?>"><a href="<?= base_url('setting/cekip') ?>"><i class="fa fa-link"></i> <span>Cek IP</span></a></li>
         <li class="<?= $this->uri->segment('1') == 'backup' ? 'active' : null ?>"><a href="<?= base_url('backup') ?>"><i class="fa fa-database"></i> <span>Backup & Restore Data</span></a></li>
-    <?php } ?>
+        <?php } ?>
+        <?php if($this->session->userdata('level') == 2){?>
+            <li class="header">SETTINGS</li>
+            <li class="<?= $this->uri->segment('1') == 'setting' ? 'active' : null ?>"><a href="<?= base_url('setting') ?>"><i class="fa fa-cogs"></i> <span>Pengaturan</span></a></li>
+            <li class="<?= $this->uri->segment('1') == 'cekip' ? 'active' : null ?>"><a href="<?= base_url('setting/cekip') ?>"><i class="fa fa-link"></i> <span>Cek IP</span></a></li>
+        <?php }?>
 </ul>

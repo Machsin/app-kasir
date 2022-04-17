@@ -94,12 +94,23 @@
 <body onload="window.print()">
     <div class="book">
         <div class="page">
-        <?php
-    $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-    echo '<img src="data:image/png;base64,' . base64_encode($generator->getBarcode($row->barcode, $generator::TYPE_CODE_128)) . '" style="width:200px">';
-    ?>
-    <br>
-    <?= $row->barcode ?>
+            <table>
+                <tr>
+                    <td colspan="2"><small><?= $row->name ?></small></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <?php
+                        $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+                        echo '<img src="data:image/png;base64,' . base64_encode($generator->getBarcode($row->barcode, $generator::TYPE_CODE_128)) . '" style="width:200px">';
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><small><?= $row->barcode ?></small></td>
+                    <td><small><?= indo_currency($row->price3) ?></small></td>
+                </tr>
+            </table>
         </div>
     </div>
 </body>

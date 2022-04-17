@@ -33,7 +33,7 @@ class Report_model extends CI_Model
         if ($where != null) {
             $query->where($where);
         }
-        return $query->get();
+        return $query->order_by('tb_sale.sale_id','DESC')->get();
     }
     public function tampilproduct($id)
     {

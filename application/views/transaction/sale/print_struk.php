@@ -92,7 +92,8 @@
                 <tr>
                     <td colspan="4" style="border-bottom:1px dashed; padding-top:5px;"></td>
                 </tr>
-                <?php $arr_discount = [];
+                <?php 
+                $arr_discount = [];
                 foreach ($sale_detail as $sd) { ?>
                     <tr>
                         <td><?= $sd->name; ?></td>

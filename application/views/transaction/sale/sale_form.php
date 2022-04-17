@@ -549,8 +549,7 @@
                             console.log('Print.......')
                             alert('Berhasil melakukan transaksi')
                             if (confirm('Ingin mencetak nota')) {
-                                window.open('<?= base_url('sale/cetak/') ?>' + result.sale_id,
-                                    '_blank')
+                                window.open('<?= base_url('sale/cetak_struk/') ?>' + result.sale_id)
                                 window.location.reload();
                             } else {
                                 window.location.reload();
